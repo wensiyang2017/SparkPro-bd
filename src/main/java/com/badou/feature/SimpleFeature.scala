@@ -13,7 +13,6 @@ object SimpleFeature {
     */
 //    统计销售量
     val productCnt = priors.groupBy("product_id").count()
-
     //    统计商品被再次购买量：sum("reordered")，统计reordered比率：avg("reordered")
     val productRodCnt = priors.selectExpr("product_id", "cast(reordered as int)")
       .groupBy("product_id")
@@ -62,8 +61,7 @@ object SimpleFeature {
     val userProRcdSize=op.rdd.map(x=>(x(0).toString,x(1).toString)).groupByKey().mapValues{record=>
       val rs = record.toSet
       (rs.size,rs.mkString(","))
-    }.toDF("user_id","tuple")
-  .selectExpr("user_id","tuple._1 as prod_dist_cnt","tuple._2 as prod_records")
+    }.toDF("user_id","tuple").selectExpr("user_id","tuple._1 as prod_dist_cnt","tuple._2 as prod_records")
 //    5.每个用户购买的平均每个订单的商品数量
 //    1）先求每个订单的商品数量【对订单做聚合count（）】
     val ordProCnt = priors.groupBy("order_id").count()
