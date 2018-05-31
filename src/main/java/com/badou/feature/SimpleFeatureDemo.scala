@@ -104,20 +104,27 @@ object SimpleFeatureDemo {
      * 每个用户总商品数量以及去重后的商品数量总商品数量
      */
     val productCnt = op.groupBy("user_id").count()
-    val userProRcdSize = op.rdd.map(x => (x(0).toString, x(1).toString))
-      .groupByKey()
-      .mapValues { x =>
+    val userProRcdSize = op.rdd.map(x => (x(0).toString, x(1).toString)).groupByKey().mapValues {
+      x =>
         val rs = x.toSet
         (rs.size, rs.mkString(","))
-      }
-      .toDF("user_id", "tuple")
-      .selectExpr("user_id", "tuple._1 as prod_dist_cnt", "tuple._2 as prod_records")
+    }.toDF("user_id", "tuple").selectExpr("user_id", "tuple._1 as prod_dist_cnt", "tuple._2 as prod_records")
 
 
     /*
     *  每个用户购买的平均每个订单的商品数量
     * */
-    val uop = orders.join(priors, "order_id").select("user_id", "order_id","product_id")
-     uop.groupBy("order_id","user_id").count()
+    //每个订单商品的数量
+    val ordProCnt = priors.groupBy("order_id").count()
+    //每个用户订单数量
+  val userPerOrdProdCnt = orders.join(ordProCnt,"order_id").select("user_id","order_id","count").groupBy("user_id").agg(avg("count") as ("user_avg_ord_prods"))
+
+    val userFeat = userGap.join(orderCnt,"user_id").join(userProRcdSize,"user_id").join(userPerOrdProdCnt,"user_id").selectExpr("user_id",
+      "user_avg_day_gap",
+      "count as user_ord_cnt",
+      "prod_dist_cnt as user_prod_dist_cnt",
+      "prod_records as user_prod_records",
+      "user_avg_ord_prods")
+
   }
 }
