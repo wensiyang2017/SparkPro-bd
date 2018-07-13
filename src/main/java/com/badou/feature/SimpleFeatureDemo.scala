@@ -103,7 +103,7 @@ object SimpleFeatureDemo {
     /*
      * 每个用户总商品数量以及去重后的商品数量总商品数量
      */
-    val productCnt = op.groupBy("user_id").count()
+    val productCnt1 = op.groupBy("user_id").count()
     val userProRcdSize = op.rdd.map(x => (x(0).toString, x(1).toString)).groupByKey().mapValues {
       x =>
         val rs = x.toSet
@@ -119,12 +119,17 @@ object SimpleFeatureDemo {
     //每个用户订单数量
     val userPerOrdProdCnt = orders.join(ordProCnt, "order_id").select("user_id", "order_id", "count").groupBy("user_id").agg(avg("count") as ("user_avg_ord_prods"))
 
-    val userFeat = userGap.join(orderCnt, "user_id").join(userProRcdSize, "user_id").join(userPerOrdProdCnt, "user_id").selectExpr("user_id",
+   val userFeat = userGap.join(orderCnt, "user_id")
+                           .join(userProRcdSize, "user_id")
+                           .join(userPerOrdProdCnt, "user_id")
+                           .selectExpr("user_id",
       "user_avg_day_gap",
       "count as user_ord_cnt",
       "prod_dist_cnt as user_prod_dist_cnt",
       "prod_records as user_prod_records",
       "user_avg_ord_prods")
 
+   return userFeat
   }
+
 }
