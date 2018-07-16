@@ -76,5 +76,8 @@ object RddDemo {
    *  2.Hadoop数据集
    *
   * */
-  val rddsH = sc.textFile("/")
+  val rddsH = sc.textFile("/data/The_man_of_property.txt")
+
+  //wordCount
+  rddsH.flatMap(_.split(" ")).map(x=>(x,1)).reduceByKey(_+_)
 }
