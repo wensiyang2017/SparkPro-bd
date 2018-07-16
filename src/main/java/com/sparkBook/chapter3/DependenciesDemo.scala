@@ -1,7 +1,7 @@
 package com.sparkBook.chapter3
 
 /**
-  * 宽依赖和窄依赖
+  * 宽依赖和窄依赖(划分stage)
   */
 object DependenciesDemo {
 
