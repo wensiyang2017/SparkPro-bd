@@ -20,6 +20,8 @@
 
 
     <dependencies>
+
+        <!--spark&scala引入-->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.version}</artifactId>
