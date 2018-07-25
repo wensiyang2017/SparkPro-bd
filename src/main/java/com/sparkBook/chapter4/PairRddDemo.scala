@@ -24,6 +24,15 @@ object PairRddDemo {
     kv1.reduceByKey((x,y)=>x+y).collect
 
     // Array[(String, (Int, Int))] = Array((A,(1,1)), (B,(2,1)), (C,(3,1)), (A,(4,1)))
+     kv1.mapValues(x=>(x,1)).collect()
+
+
+    //join (k,v),(k,w)=>(k,(v,w))相同的可以value笛卡尔积
+    kv1.join(kv2)
+
+    //cogroup (k,v),(k,w)=>(k,(c(v),c(w)))
+    kv1.cogroup(kv2).collect()
+
   }
 }
 
