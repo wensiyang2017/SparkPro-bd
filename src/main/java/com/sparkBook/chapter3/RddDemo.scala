@@ -42,7 +42,8 @@ object RddDemo {
     *
     * Driver Program：运行Application的main()函数并创建SparkContext。通常SparkContext代表driver program
     *
-    * Executor：为某Application运行在worker node上的一个进程(内存+线程)。该进程负责运行Task，并负责将数据存在内存或者磁盘上。每个Application都有自己独立的executors
+    * Executor：为某Application运行在worker node上的一个进程(内存+线程)。
+    *           该进程负责运行Task，并负责将数据存在内存或者磁盘上。每个Application都有自己独立的executors
     *
     * Cluster Manager: 在集群上获得资源的外部服务（例如 Spark Standalon，Mesos、Yarn）
     *
