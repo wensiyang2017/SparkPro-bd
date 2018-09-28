@@ -9,6 +9,12 @@ import org.apache.spark.{SparkConf, SparkContext}
   **/
 object WordcountDemo {
 
+  //  val intpath = "/BigData/tool/hapMirroring/share_folder/data/order_data/The_man_of_property.txt";
+  //  val outpath = "/Users/wensiyang/Documents/out.txt";
+
+  val intpath = "D:\\wordCount.txt"
+  val outpath = "D:\\out.txt"
+
   def main(args: Array[String]): Unit = {
     //创建一个conf对象
     val conf = new SparkConf()
@@ -25,11 +31,11 @@ object WordcountDemo {
 
     //构建一个saprkContext
     val sc = new SparkContext(conf)
-    val lines = sc.textFile("/BigData/tool/hapMirroring/share_folder/data/order_data/The_man_of_property.txt ")
+    val lines = sc.textFile(intpath)
     lines.flatMap(x => x.split(" ")
       .map(x => (x, 1)))
       .reduceByKey(_ + _)
-      .saveAsTextFile("/Users/wensiyang/Documents/out.txt")
+      .saveAsTextFile(outpath)
     sc.stop()
   }
 
