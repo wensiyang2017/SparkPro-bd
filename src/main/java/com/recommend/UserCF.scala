@@ -15,6 +15,7 @@ object UserCF {
       .groupByKey()
       .mapValues(x=>sqrt(x.toArray.map(r=>pow(r.toDouble,2)).sum))
       .toDF("user_id","rating_sqrt_sum")
+    return  userScoreSum
   }
 
 }
