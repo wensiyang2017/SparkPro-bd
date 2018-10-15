@@ -22,11 +22,11 @@ object StatefulWordCountStreaming {
     val wordDs = socketDs.flatMap(x => x.split(" ")).map(x => (x, 1))
 
     //更新状态
-    wordDs.updateStateByKey(updateFunc)
+    //wordDs.updateStateByKey(updateFunc)
 
   }
 
-  val updateFunc = (iter:Iterator[(Str)])
+ // val updateFunc = (iter:Iterator[(Str)])
 
 
 }
