@@ -1,4 +1,4 @@
-package com.itcast
+package com.itcast.wordCount
 
 import org.apache.spark.{SparkConf, SparkContext}
 
