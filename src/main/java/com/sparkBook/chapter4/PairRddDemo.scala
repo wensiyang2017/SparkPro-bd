@@ -23,8 +23,11 @@ object PairRddDemo {
     kv1.reduceByKey(_+_).collect
     kv1.reduceByKey((x,y)=>x+y).collect
 
+
     // Array[(String, (Int, Int))] = Array((A,(1,1)), (B,(2,1)), (C,(3,1)), (A,(4,1)))
-     kv1.mapValues(x=>(x,1)).collect()
+    //对 pair RDD 中的每个值应用 一个函数而不改变键
+    kv1.mapValues(x=>(x,1)).collect()
+    kv1.mapValues(x=>x+1).collect()
 
 
     //join (k,v),(k,w)=>(k,(v,w))相同的可以value笛卡尔积

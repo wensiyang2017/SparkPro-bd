@@ -28,7 +28,7 @@ class SearchFunctions(val query: String) {
 
 }
 
-object Test {
+object SearchFunctions {
 
   def main(args: Array[String]): Unit = {
     val search = new SearchFunctions("ERROR")
