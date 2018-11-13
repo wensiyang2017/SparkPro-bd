@@ -163,8 +163,8 @@ object Person {
 class Student(private val name: String, private var age: Int, val id: String, val Class: String = "01") {
 
   //添加辅助的构造器,辅助构造器一定要先调用主构造器
-  def this() {
-    this(name, age, id, Class)
-  }
+//  def this() {
+//    //this(name, age, id, Class)
+//  }
 
 }

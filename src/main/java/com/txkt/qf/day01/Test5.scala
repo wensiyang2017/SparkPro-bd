@@ -18,9 +18,9 @@ object Test5 {
   * 格式化字符串
   * */
   private def test3(): Unit = {
-    var floatVar = 12.456
-    var intVar = 2000
-    var stringVar = "菜鸟教程!"
+    val floatVar = 12.456
+    val intVar = 2000
+    val stringVar = "菜鸟教程!"
 
     printf("字符串是%s,folat是%f,int是%d",stringVar,floatVar,intVar)
 
